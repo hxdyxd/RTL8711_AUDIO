@@ -24,30 +24,30 @@ void send_packet(unsigned char *p, int len)
     */
     while(len--) {
         switch(*p) {
-	    	/* if it's the same code as an END character, we send a
-	    	 * special two character code so as not to make the
-		     * receiver think we sent an END */
-	       case END:
-	            send_char(ESC);
-	            send_char(ESC_END);
-	            break;
-	
-	       /* if it's the same code as an ESC character,
-	        * we send a special two character code so as not
-	        * to make the receiver think we sent an ESC
-	        */
-	       case ESC:
-	            send_char(ESC);
-	            send_char(ESC_ESC);
-	            break;
-	
-	       /* otherwise, we just send the character
-	        */
-	       default:
-	            send_char(*p);
-	    }
-	    
-		p++;
+        /* if it's the same code as an END character, we send a
+         * special two character code so as not to make the
+         * receiver think we sent an END */
+         case END:
+              send_char(ESC);
+              send_char(ESC_END);
+              break;
+  
+         /* if it's the same code as an ESC character,
+          * we send a special two character code so as not
+          * to make the receiver think we sent an ESC
+          */
+         case ESC:
+              send_char(ESC);
+              send_char(ESC_ESC);
+              break;
+  
+         /* otherwise, we just send the character
+          */
+         default:
+              send_char(*p);
+      }
+      
+    p++;
     }
 
    /* tell the receiver that we're done sending the packet */
@@ -63,15 +63,15 @@ void send_packet(unsigned char *p, int len)
  */
 int recv_packet(unsigned char *p, int len)
 {
-	unsigned char c;
-	int received = 0;
+  unsigned char c;
+  int received = 0;
 
-	/* sit in a loop reading bytes until we put together
-	 * a whole packet.
-	 * Make sure not to copy them into the packet if we
-	 * run out of room.
-	 */
-	while(1) {
+  /* sit in a loop reading bytes until we put together
+   * a whole packet.
+   * Make sure not to copy them into the packet if we
+   * run out of room.
+   */
+  while(1) {
        /* get a character to process */
         c = recv_char();
 
@@ -106,11 +106,11 @@ int recv_packet(unsigned char *p, int len)
                 * seems to be to leave the byte alone and
                 * just stuff it into the packet
                 */
-				switch(c) {
-                	case ESC_END:
-                   		c = END;
-                    	break;
-               		case ESC_ESC:
+        switch(c) {
+                  case ESC_END:
+                      c = END;
+                      break;
+                  case ESC_ESC:
                         c = ESC;
                         break;
                 }

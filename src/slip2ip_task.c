@@ -10,7 +10,7 @@
 #include "wlan_api.h"
 
 #ifndef _USE_UDP_TUNNEL
-	#define _USE_UDP_TUNNEL 0
+	#define _USE_UDP_TUNNEL 1
 #endif
 
 
